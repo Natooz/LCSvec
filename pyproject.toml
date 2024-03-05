@@ -10,7 +10,7 @@ requires = [
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "lctorch"
+name = "lcstorch"
 requires-python = ">=3.8"
 authors = [
     {name = "Nathan Fradet"}
@@ -18,7 +18,7 @@ authors = [
 maintainers = [
     {name = "Nathan Fradet"}
 ]
-description = "Longest Common Subsequence (LCS) for PyTorch tensors."
+description = "Longest Common Subsequence (LCS) extension for PyTorch tensors."
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {file = "LICENSE"}
 keywords = ["pytorch", "torch", "lcs"]
@@ -42,15 +42,12 @@ classifiers = [
     "Operating System :: Unix",
 ]
 
-dependencies = [
-    "pySmartDL",
-    "platformdirs"
-]
+dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/Natooz/LCTorch"
-Repository = "https://github.com/Natooz/LCTorch"
-Issues = "https://github.com/Natooz/LCTorch/issues"
+Homepage = "https://github.com/Natooz/LCSTorch"
+Repository = "https://github.com/Natooz/LCSTorch"
+Issues = "https://github.com/Natooz/LCSTorch/issues"
 
 [tool.scikit-build]
 cmake.minimum-version = "3.26.1"
@@ -61,10 +58,10 @@ BUILD_PY = "ON"
 
 [tool.scikit-build.metadata]
 version.provider = "scikit_build_core.metadata.regex"
-version.input = "lctorch/__init__.py"
+version.input = "lcstorch/__init__.py"
 
 [tool.skbuild]
-packages = ["lctorch"]
+packages = ["lcstorch"]
 cmake-args = []
 
 [project.optional-dependencies]

@@ -1,2 +1,3 @@
-# LCTorch
-Longest Common Subsequence (LCS) for PyTorch tensors
+# LCSTorch
+
+Longest Common Subsequence (LCS) extension for PyTorch tensors
