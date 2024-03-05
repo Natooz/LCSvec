@@ -1,13 +1,15 @@
-#include <nanobind/stl/vector.h>
+#include <nanobind/nanobind.h>
 #include <nanobind/ndarray.h>
 #include <vector>
-#include <map>
 #include <string>
 #include <iostream>
 #include <string.h>
 #include <sstream>
 #include <algorithm>
 using namespace std;
+
+// TODO Remove when not necessary anymore
+int add(int a, int b) { return a + b; }
 
 
 vector<string> utf8_split(const string &str){
@@ -201,25 +203,18 @@ vector<int> lcs_string_of_list(const string &str1, vector<string> &str_list){
 }
 
 
-bool inline __contains(map<string, map<string, float>> m, string k1, string k2) {
-    return m.find(k1) != m.end() && m[k1].find(k2) != m[k1].end();
-}
-
-
 namespace py = nanobind;
 
 NB_MODULE(lctorch, m) {
-    m.def("lcs", &lcs_sequence_length, R"pbdoc(Longest common subsequence)pbdoc");
+    m.def("add", &add);
+
     m.def("lcs_sequence_length", &lcs_sequence_length, R"pbdoc(Longest common subsequence)pbdoc");
     m.def("lcs_sequence_idx", &lcs_sequence_idx, R"pbdoc(Longest common subsequence indices mapping from str to ref)pbdoc",
         py::arg("s"), py::arg("ref"));
-    m.def("lcs_of_list", &lcs_sequence_of_list, R"pbdoc(Longest common subsequence of list)pbdoc");
     m.def("lcs_sequence_of_list", &lcs_sequence_of_list, R"pbdoc(Longest common subsequence of list)pbdoc");
 
-    m.def("lcs2", &lcs_string_length, R"pbdoc(Longest common substring)pbdoc");
     m.def("lcs_string_length", &lcs_string_length, R"pbdoc(Longest common substring)pbdoc");
     m.def("lcs_string_idx", &lcs_string_idx, R"pbdoc(Longest common substring indices mapping from str to ref)pbdoc",
         py::arg("s"), py::arg("ref"));
-    m.def("lcs2_of_list", &lcs_string_of_list, R"pbdoc(Longest common substring of list)pbdoc");
     m.def("lcs_string_of_list", &lcs_string_of_list, R"pbdoc(Longest common substring of list)pbdoc");
 }
