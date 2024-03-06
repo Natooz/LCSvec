@@ -2,7 +2,7 @@
 #include <torch/extension.h>
 
 torch::Tensor lcs(
-    const torch::Tensor& src,
-    const torch::Tensor& trg,
+    const torch::Tensor& seq1,
+    const torch::Tensor& seq2,
     int64_t padToken
 );

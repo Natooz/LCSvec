@@ -1,55 +1,68 @@
-#include "lcs.h"
+#include <torch/extension.h>
+
 
 torch::Tensor lcs(
-    const torch::Tensor& s1,
-    const torch::Tensor& s2,
-    int64_t padToken)
-{
+    torch::Tensor const s1,
+    torch::Tensor const s2
+) {
+    // Checks
     int64_t s1Dims = s1.ndimension();
     int64_t s2Dims = s2.ndimension();
-
-    // TODO make it work on any number of dimensions and add a `dim` argument
-    // TODO make it work with an unlimited number of sequences, and `pad_token` as kwarg
-    TORCH_CHECK(s1Dims == 2 || s1Dims == 1,
-                "lcs: Expect 1D or 2D Tensor, got: ",
+    TORCH_CHECK(s1Dims == 1,
+                "lcs: Expect 1D Tensor, got: ",
                 s1.sizes());
 
-    TORCH_CHECK(s2Dims == 2 || s2Dims == 1,
-                "lcs: Expect 1D or 2D Tensor, got: ",
+    TORCH_CHECK(s2Dims == 1,
+                "lcs: Expect 1D Tensor, got: ",
                 s2.sizes());
 
-    TORCH_CHECK(s1Dims == s2Dims,
-                "lcs: Expect tensors to have the same number of dimensions");
-
     TORCH_CHECK(s1.device() == s2.device(),
-                "tensors must be on the same device, got ",
+                "lcs: tensors must be on the same device, got ",
                 "s1 on device ", s1.device(),
                 " and s2 on device ", s2.device());
 
-    auto s1_ = s1;
-    auto s2_ = s2;
-    if (s1Dims == 1)
-    {
-        s1_ = s1_.reshape({1, s1_.size(0)});
-        s2_ = s2_.reshape({1, s2_.size(0)});
+    // Sequence lengths
+    auto s1Len = s1.size(0);
+    auto s2Len = s2.size(0);
+
+    // Zero length
+    if (s1Len == 0 || s2Len == 0)
+        return torch::empty({0}, {torch::kInt64});
+
+    // Building the matrix
+    int lcsTable[s1Len + 1][s2Len + 1];
+    for (int i = 0; i < s1Len; i++) {
+        for (int j = 0; j < s2Len; j++) {
+            if (i == 0 || j == 0)
+                lcsTable[i][j] = 0;
+            else if (s1[i].equal(s2[j]))
+                lcsTable[i + 1][j + 1] = lcsTable[i][j] + 1;
+            else
+                lcsTable[i + 1][j + 1] = std::max(lcsTable[i][j + 1], lcsTable[i + 1][j]);
+        }
     }
 
-    // must have the same shapes except for the processed dimension
-    TORCH_CHECK(s1_.size(0) == s2_.size(0),
-	        "lcs: expected tensors to have same batch size");
+    int index = lcsTable[s1Len][s2Len];
+    int lcsArr[index + 1];
+    int i = s1Len, j = s2Len;
+    while (i > 0 && j > 0) {
+        if (s1[i - 1].equal(s2[j - 1])) {
+            lcsArr[index - 1] = s1[i - 1].item<int>();  // TODO detect indexes?
+            i--;
+            j--;
+            index--;
+        }
+        else if (lcsTable[i - 1][j] > lcsTable[i][j - 1])
+            i--;
+        else
+            j--;
+    }
 
-    // dispatch
-    static auto op = torch::Dispatcher::singleton()
-    .findSchemaOrThrow("lcs::lcs", "")
-    .typed<decltype(lcs)>();
-    return op.call(s1_, s2_, padToken);
+    // TODO handle pointer memory assignment
+    return torch::tensor(lcsArr, {torch::kInt64});
 }
 
-
-TORCH_LIBRARY(lcs, m) {
-    m.def("lcs(Tensor self, Tensor other, int padToken) -> Tensor");
-}
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-    m.def("lcs", &lcs, "lcs forward");
+    m.def("lcs", lcs, "lcs forward");
 }
