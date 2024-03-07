@@ -1,15 +1,15 @@
 [build-system]
 requires = [
     "setuptools>=42",
-    "scikit-build>=0.13",
-    "nanobind>=1.8.0",
+    "scikit-build-core >=0.8.0",
+    "nanobind>=1.9.0",
     "cmake>=3.20",
     "ninja",
 ]
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "lcstorch"
+name = "lcspy"
 requires-python = ">=3.8"
 authors = [
     {name = "Nathan Fradet"}
@@ -41,6 +41,7 @@ classifiers = [
     "Operating System :: Unix",
 ]
 dependencies = []
+dynamic = ["version"]
 
 [project.optional-dependencies]
 test = ["pytest-cov", "pytest-xdist[psutil]"]
@@ -51,15 +52,15 @@ Repository = "https://github.com/Natooz/LCSTorch"
 Issues = "https://github.com/Natooz/LCSTorch/issues"
 
 [tool.scikit-build]
-cmake.minimum-version = "3.26.1"
-ninja.minimum-version = "1.11"
+cmake.version = ">=3.26.1"
+ninja.version = ">=1.11"
 
 [tool.scikit-build.metadata]
 version.provider = "scikit_build_core.metadata.regex"
 version.input = "src/lcspy/__init__.py"
 
 [tool.skbuild]
-packages = ["lcstorch"]
+# packages = ["lcspy"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
