@@ -1,13 +1,10 @@
-"""
-Testing LCS extension on CPU.
-"""
-
-from numpy import all, arange, array
+"""Testing LCS extension on CPU."""
 
 from lcspy import lcs, lcs_length, lcs_table
+from numpy import all, arange, array
 
 
-def test_lcs_simple():
+def test_lcs_simple() -> None:
     r"""
     Test the LCS method with a simple case.
 

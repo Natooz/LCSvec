@@ -1,13 +1,6 @@
-"""
-
-"""
+"""Python interface."""
 
 from __future__ import annotations
-
-from numpy import ndarray
-
-from . import lcs_ext
-
 
 """def lcs(seq1: ndarray, seq2: ndarray) -> list[int]: ...
 

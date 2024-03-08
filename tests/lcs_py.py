@@ -1,6 +1,4 @@
-"""
-Python implementation of the lcs algorithm using PyTorch.
-"""
+"""Python implementation of the lcs algorithm using PyTorch."""
 
 from torch import LongTensor, cat
 
@@ -11,7 +9,7 @@ def longest_common_subsequence(x: LongTensor, y: LongTensor) -> LongTensor:
 
     This works with PyTorch tensors.
     """
-    # generate matrix of length of longest common subsequence for subsequences of both sequences
+    # generate matrix for subsequences of both sequences
     lengths = [[0] * (len(y) + 1) for _ in range(len(x) + 1)]
     for i, xi in enumerate(x):
         for j, yi in enumerate(y):
@@ -21,10 +19,10 @@ def longest_common_subsequence(x: LongTensor, y: LongTensor) -> LongTensor:
                 lengths[i + 1][j + 1] = max(lengths[i + 1][j], lengths[i][j + 1])
 
     # read subsequences from the matrix
-    result = []
     j = len(y)
-    for i in range(1, len(x) + 1):
-        if lengths[i][j] != lengths[i - 1][j]:
-            result.append(x[i - 1].reshape(1))
-
+    result = [
+        x[i - 1].reshape(1)
+        for i in range(1, len(x) + 1)
+        if lengths[i][j] != lengths[i - 1][j]
+    ]
     return cat(result).long()
