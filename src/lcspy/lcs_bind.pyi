@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from numpy import ndarray
 
-import .lcspy_ext
+from . import lcs_ext
 
 
 """def lcs(seq1: ndarray, seq2: ndarray) -> list[int]: ...
