@@ -1,9 +1,10 @@
 """Python implementation of the lcs algorithm using PyTorch."""
 
-from torch import LongTensor, cat
+import numpy as np
+import numpy.typing as npt
 
 
-def longest_common_subsequence(x: LongTensor, y: LongTensor) -> LongTensor:
+def longest_common_subsequence(x: npt.NDArray, y: npt.NDArray) -> npt.NDArray:
     """
     Dynamically retrieve the longest common subsequence between two sequences.
 
@@ -25,4 +26,4 @@ def longest_common_subsequence(x: LongTensor, y: LongTensor) -> LongTensor:
         for i in range(1, len(x) + 1)
         if lengths[i][j] != lengths[i - 1][j]
     ]
-    return cat(result).long()
+    return np.concatenate(result, dtype=np.int64)
