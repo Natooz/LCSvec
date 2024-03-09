@@ -3,7 +3,7 @@
 #include "cpu/lccs_cpu_dyn.cpp"
 
 
-NB_MODULE(lcspy_ext, m) {
+NB_MODULE(lcsvec_ext, m) {
     m.doc() = "A python extension for fast Longest Common Subsequence (LCS) calculation on scalar vectors;";
 
     m.def("lcs", &lcs, "seq1"_a, "seq2"_a,

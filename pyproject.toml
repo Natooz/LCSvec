@@ -9,7 +9,7 @@ requires = [
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "lcspy"
+name = "lcsvec"
 requires-python = ">=3.8"
 authors = [
     {name = "Nathan Fradet"}
@@ -17,7 +17,7 @@ authors = [
 maintainers = [
     {name = "Nathan Fradet"}
 ]
-description = "Longest Common Subsequence (LCS) extension for scalar vectors."
+description = "Longest Common Subsequence (LCS) extension for vectors."
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {file = "LICENSE"}
 keywords = ["lcs"]
@@ -40,17 +40,17 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: Unix",
 ]
-dependencies = ["numpy"]
+dependencies = []
 dynamic = ["version"]
 
 [project.optional-dependencies]
-test = ["pytest-cov", "pytest-xdist[psutil]"]
-dev = ["pytest-cov", "pytest-xdist[psutil]", "pre-commit"]
+test = ["pytest-cov", "pytest-xdist[psutil]", "numpy", "torch"]
+dev = ["pytest-cov", "pytest-xdist[psutil]", "numpy", "torch", "pre-commit"]
 
 [project.urls]
-Homepage = "https://github.com/Natooz/LCSTorch"
-Repository = "https://github.com/Natooz/LCSTorch"
-Issues = "https://github.com/Natooz/LCSTorch/issues"
+Homepage = "https://github.com/Natooz/LCSvec"
+Repository = "https://github.com/Natooz/LCSvec"
+Issues = "https://github.com/Natooz/LCSvec/issues"
 
 [tool.scikit-build]
 cmake.version = ">=3.26.1"
@@ -58,10 +58,10 @@ ninja.version = ">=1.11"
 
 [tool.scikit-build.metadata]
 version.provider = "scikit_build_core.metadata.regex"
-version.input = "src/lcspy/__init__.py"
+version.input = "src/lcsvec/__init__.py"
 
 [tool.skbuild]
-# packages = ["lcspy"]
+# packages = ["lcsvec"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(lcspy LANGUAGES CXX)
+project(lcsvec LANGUAGES CXX)
 
 # Warn if the user invokes CMake directly
 if (NOT SKBUILD)
@@ -46,7 +46,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ext/nanobind)
 # Build the extensions
 nanobind_add_module(
     # Extension name
-    lcspy_ext
+    lcsvec_ext
 
     # Target the stable ABI for Python 3.12+, which reduces
     # the number of binary wheels that must be built. This
@@ -55,5 +55,5 @@ nanobind_add_module(
 
     # Source code
     src/lcs.cpp)
-# target_link_libraries(lcspy PRIVATE lcspy)
-install(TARGETS lcspy_ext LIBRARY DESTINATION lcspy)
+# target_link_libraries(lcsvec PRIVATE lcsvec)
+install(TARGETS lcsvec_ext LIBRARY DESTINATION lcsvec)
