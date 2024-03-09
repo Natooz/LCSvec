@@ -54,6 +54,6 @@ nanobind_add_module(
     STABLE_ABI
 
     # Source code
-    src/cpu/lcs_cpu.cpp)
+    src/lcs.cpp)
 # target_link_libraries(lcspy PRIVATE lcspy)
 install(TARGETS lcspy_ext LIBRARY DESTINATION lcspy)

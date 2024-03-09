@@ -1,6 +1,5 @@
 #include <nanobind/nanobind.h>
 #include <nanobind/ndarray.h>
-#include <nanobind/stl/vector.h>
 #include <vector>
 
 namespace nb = nanobind;
@@ -76,17 +75,4 @@ std::vector<int> lcs(
     }
 
     return lcsArr;
-}
-
-
-NB_MODULE(lcspy_ext, m) {
-    m.doc() = "A python extension for fast Longest Common Subsequence (LCS) calculation on scalar vectors;";
-
-    m.def("lcs", &lcs, "seq1"_a, "seq2"_a,
-          "Returns the longest common subsequence (lcs) from `seq1` and `seq2`.");
-    m.def("lcs_length", &lcsLength, "seq1"_a, "seq2"_a,
-          "Returns the length longest common subsequence (lcs) from `seq1` and `seq2`. If you only need to get the length of the lcs, calling this method will be more efficient than calling `lcs()`.");
-    m.def("lcs_table", &createLCSTable, "seq1"_a, "seq2"_a,
-          "Returns the longest common subsequence (lcs) table from `seq1` and `seq2`.");
-    // TODO longest unique subsequence
 }

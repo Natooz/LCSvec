@@ -45,6 +45,7 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 test = ["pytest-cov", "pytest-xdist[psutil]"]
+dev = ["pytest-cov", "pytest-xdist[psutil]", "pre-commit"]
 
 [project.urls]
 Homepage = "https://github.com/Natooz/LCSTorch"
