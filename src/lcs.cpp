@@ -15,6 +15,6 @@ NB_MODULE(lcsvec_ext, m) {
 
     m.def("lccs", &lccs, "seq1"_a, "seq2"_a,
           "Returns the longest common contiguous subsequence (lccs) from `seq1` and `seq2`.");
-    m.def("lccs_length", &lccs_length, "seq1"_a, "seq2"_a,
+    m.def("lccs_length", &lccsLength, "seq1"_a, "seq2"_a,
           "Returns the length of the longest common contiguous subsequence (lccs) from `seq1` and `seq2`.");
 }

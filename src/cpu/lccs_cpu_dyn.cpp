@@ -7,7 +7,7 @@ using namespace nb::literals;
 
 
 // Returns the length of the longest common subsequence and the idx of its end in s1
-std::vector<int> lccs_length_idx(
+std::vector<int> lccsLengthIdx(
     const nb::ndarray<double, nb::ndim<1>>& s1,
     const nb::ndarray<double, nb::ndim<1>>& s2
 ) {
@@ -33,18 +33,18 @@ std::vector<int> lccs_length_idx(
             }
         }
     }
-    std::vector<int> lccs_len_idx = {max_length, imax};
-    return lccs_len_idx;
+    std::vector<int> lccsLenIdx = {max_length, imax};
+    return lccsLenIdx;
 }
 
 
 // Calculating the length of the longest common contiguous subsequence with dynamic programming
-int lccs_length(
+int lccsLength(
     const nb::ndarray<double, nb::ndim<1>>& s1,
     const nb::ndarray<double, nb::ndim<1>>& s2
 ) {
-    std::vector<int> lccs_len_idx = lccs_length_idx(s1, s2);
-    return lccs_len_idx[0];
+    std::vector<int> lccsLenIdx = lccsLengthIdx(s1, s2);
+    return lccsLenIdx[0];
 }
 
 
@@ -53,12 +53,12 @@ std::vector<int> lccs(
     const nb::ndarray<double, nb::ndim<1>>& s1,
     const nb::ndarray<double, nb::ndim<1>>& s2
 ) {
-    std::vector<int> lccs_len_idx = lccs_length_idx(s1, s2);
+    std::vector<int> lccsLenIdx = lccsLengthIdx(s1, s2);
 
     // Extract the longest common substring from s1
-    std::vector<int> longestSubseq(lccs_len_idx[0]);
+    std::vector<int> longestSubseq(lccsLenIdx[0]);
     int idx = 0;
-    for (int i = lccs_len_idx[1] - lccs_len_idx[0] + 1; i <= lccs_len_idx[1]; ++i)
+    for (int i = lccsLenIdx[1] - lccsLenIdx[0] + 1; i <= lccsLenIdx[1]; ++i)
         longestSubseq[idx++] = s1(i);
 
     return longestSubseq;

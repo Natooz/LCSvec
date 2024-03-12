@@ -21,7 +21,7 @@ You can install the package with pip: `pip install lcsvec`.
 Here we will use numpy, the usage for other deep learning libraries is the same.
 
 ```Python
-from lcsvec import lcs, lcs_length, lccs_length
+from lcsvec import lccs, lccs_length, lcs, lcs_length
 import numpy as np
 
 seq1 = np.arange(0, 12)
@@ -30,7 +30,8 @@ seq2 = np.array([8, 0, 1, 2, 8, 2, 3, 4, 5, 6], dtype=np.int64)
 lcs_ = lcs(seq1, seq2)  # [0, 1, 2, 3, 4, 5, 6]
 lcs_len = lcs_length(seq1, seq2)  # 7, more efficient than calling len(lcs(seq1, seq2))
 
-lccs_len = lccs_length(seq1, seq2)  # 5, [2, 3, 4, 5, 6]
+lccs = lccs(seq1, seq2)  # [2, 3, 4, 5, 6]
+lccs_len = lccs_length(seq1, seq2)  # 5, more efficient than calling len(lccs(seq1, seq2))
 ```
 
 ## TODOs
