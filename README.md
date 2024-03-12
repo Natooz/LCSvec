@@ -35,6 +35,7 @@ lccs_len = lccs_length(seq1, seq2)  # 5, [2, 3, 4, 5, 6]
 
 ## TODOs
 
+* implement lccs with suffix tree;
 * batch methods, i.e. supporting 2D arrays;
 * batch methods with any number of dimensions (nD array) and add a `dim` argument;
 * make it work with an unlimited number of sequences, and set `dim` and `pad_token` as kwargs only;
