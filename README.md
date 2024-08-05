@@ -1,6 +1,7 @@
 [![Python 3.8](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/)
 [![GitHub CI](https://github.com/Natooz/LCSvec/actions/workflows/tests.yml/badge.svg)](https://github.com/Natooz/LCSvec/actions/workflows/tests.yml)
 [![GitHub license](https://img.shields.io/github/license/Natooz/LCSvec.svg)](https://github.com/Natooz/LCSvec/blob/main/LICENSE)
+[![Downloads](https://static.pepy.tech/badge/lcsvec)](https://pepy.tech/project/lcsvec)
 [![Code style](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 
 # LCSvec
