@@ -24,12 +24,12 @@ jobs:
           - [macos-13, macosx_x86_64, openblas]
           - [macos-14, macosx_x86_64, accelerate]
           - [macos-14, macosx_arm64, accelerate]
-          - [windows-2022, win_amd64, ""]
-          - [windows-2022, win32, ""]
+          # - [windows-2022, win_amd64, ""]
+          # - [windows-2022, win32, ""]
         python: ["cp38", "cp39", "cp310", "cp311", "cp312", "pp39"]
         exclude:
-          - buildplat: [windows-2022, win32]
-            python: "pp39"
+          # - buildplat: [windows-2022, win32]
+          #  python: "pp39"
           - buildplat: [ ubuntu-22.04, musllinux_x86_64 ]
             python: "pp39"
           - buildplat: [ ubuntu-22.04, musllinux_aarch64 ]
