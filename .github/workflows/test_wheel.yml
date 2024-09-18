@@ -14,16 +14,16 @@ jobs:
     strategy:
       matrix:
         # From wheel.yml of numpy (https://github.com/numpy/numpy/blob/main/.github/workflows/wheels.yml):
-        # Github Actions doesn't support pairing matrix values together, let's improvise
+        # GitHub Actions doesn't support pairing matrix values together, let's improvise
         # https://github.com/github/feedback/discussions/7835#discussioncomment-1769026
         buildplat:
           - [ubuntu-22.04, manylinux_x86_64]
           - [ubuntu-22.04, musllinux_x86_64]
           - [ubuntu-22.04, manylinux_aarch64]
           - [ubuntu-22.04, musllinux_aarch64]
-          - [macos-13, macosx_x86_64, openblas]
-          - [macos-14, macosx_x86_64, accelerate]
-          - [macos-14, macosx_arm64, accelerate]
+          # - [macos-13, macosx_x86_64, openblas]
+          - [macos-14, macosx_x86_64]  # accelerate
+          - [macos-14, macosx_arm64]  # accelerate
           # - [windows-2022, win_amd64, ""]
           # - [windows-2022, win32, ""]
         python: ["cp38", "cp39", "cp310", "cp311", "cp312", "pp39"]
