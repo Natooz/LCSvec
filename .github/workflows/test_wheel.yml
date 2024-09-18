@@ -36,6 +36,12 @@ jobs:
           - buildplat: [ ubuntu-22.04, musllinux_aarch64 ]
             python: "pp39"
 
+    env:
+      CIBW_ENVIRONMENT_MACOS: >
+            CFLAGS='-s'
+            CXXFLAGS='-s'
+            MACOSX_DEPLOYMENT_TARGET='10.15'
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,32 +59,6 @@ jobs:
         uses: bus1/cabuild/action/msdevshell@e22aba57d6e74891d059d66501b6b5aed8123c4d  # v1
         with:
           architecture: 'x86'
-
-      - name: Setup macOS
-        if: matrix.buildplat[0] == 'macos-13' || matrix.buildplat[0] == 'macos-14'
-        run: |
-          # Needed due to https://github.com/actions/runner-images/issues/3371
-          # Supported versions: https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-          echo "FC=gfortran-13" >> "$GITHUB_ENV"
-          echo "F77=gfortran-13" >> "$GITHUB_ENV"
-          echo "F90=gfortran-13" >> "$GITHUB_ENV"
-          if [[ ${{ matrix.buildplat[2] }} == 'accelerate' ]]; then
-            # macosx_arm64 and macosx_x86_64 with accelerate
-            # only target Sonoma onwards
-            CIBW="MACOSX_DEPLOYMENT_TARGET=14.0 INSTALL_OPENBLAS=false RUNNER_OS=macOS"
-            echo "CIBW_ENVIRONMENT_MACOS=$CIBW" >> "$GITHUB_ENV"
-          
-            # the macos-13 image that's used for building the x86_64 wheel can't test
-            # a wheel with deployment target >= 14 without further work
-            echo "CIBW_TEST_SKIP=*-macosx_x86_64" >> "$GITHUB_ENV"
-          else
-            # macosx_x86_64 with OpenBLAS
-            # if INSTALL_OPENBLAS isn't specified then scipy-openblas is automatically installed
-            CIBW="RUNNER_OS=macOS"
-            PKG_CONFIG_PATH="$PWD/.openblas"
-            DYLD="$DYLD_LIBRARY_PATH:/$PWD/.openblas/lib"
-            echo "CIBW_ENVIRONMENT_MACOS=$CIBW PKG_CONFIG_PATH=$PKG_CONFIG_PATH DYLD_LIBRARY_PATH=$DYLD" >> "$GITHUB_ENV"  
-          fi
 
       - name: Build wheels
         uses: pypa/cibuildwheel@79b0dd328794e1180a7268444d46cdf12e1abd01  # v2.21.0
