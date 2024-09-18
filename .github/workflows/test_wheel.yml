@@ -69,7 +69,7 @@ jobs:
         if: ${{ matrix.buildplat[1] == 'win32' }}
         uses: bus1/cabuild/action/msdevshell@e22aba57d6e74891d059d66501b6b5aed8123c4d  # v1
         with:
-          architecture: matrix.buildplat[2]
+          architecture: ${{ matrix.buildplat[2] }}
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.1
