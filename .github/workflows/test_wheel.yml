@@ -16,6 +16,7 @@ jobs:
         # From wheel.yml of numpy (https://github.com/numpy/numpy/blob/main/.github/workflows/wheels.yml):
         # GitHub Actions doesn't support pairing matrix values together, let's improvise
         # https://github.com/github/feedback/discussions/7835#discussioncomment-1769026
+        # https://cibuildwheel.pypa.io/en/stable/options/#build-skip
         # https://cibuildwheel.pypa.io/en/stable/options/#archs
         buildplat:  # [os, dist, arch]
           - [ubuntu-latest, manylinux_x86_64, x86_64]
@@ -25,16 +26,31 @@ jobs:
           # macos-13 is an intel runner, macos-14 is apple silicon
           - [macos-13, macosx_x86_64, x86_64]
           - [macos-14, macosx_arm64, arm64]
-          # - [windows-latest, win_amd64, AMD64]
           # - [windows-2022, win32, x86]
-        python: ["cp38", "cp39", "cp310", "cp311", "cp312", "pp39"]
+          # - [windows-latest, win_amd64, AMD64]
+          # - [windows-latest, win_arm64, arm64]
+        python: ["cp38", "cp39", "cp310", "cp311", "cp312", "pp39", "pp310"]
+        # PyPy is not supported for musllinux, win32 and windows arm64
+        # CPython 3.9 is not supported on windows arm64
         exclude:
-          - buildplat: [windows-2022, win32, x86]
+          - buildplat: [ windows-2022, win32, x86 ]
             python: "pp39"
-          - buildplat: [ubuntu-latest, musllinux_x86_64, x86_64]
+          - buildplat: [ windows-latest, win_arm64, arm64 ]
             python: "pp39"
-          - buildplat: [ubuntu-latest, musllinux_aarch64, aarch64]
+          - buildplat: [ ubuntu-latest, musllinux_x86_64, x86_64 ]
             python: "pp39"
+          - buildplat: [ ubuntu-latest, musllinux_aarch64, aarch64 ]
+            python: "pp39"
+          - buildplat: [ windows-2022, win32, x86 ]
+            python: "pp310"
+          - buildplat: [ windows-latest, win_arm64, arm64 ]
+            python: "pp310"
+          - buildplat: [ ubuntu-latest, musllinux_x86_64, x86_64 ]
+            python: "pp310"
+          - buildplat: [ ubuntu-latest, musllinux_aarch64, aarch64 ]
+            python: "pp310"
+          - buildplat: [ windows-latest, win_arm64, arm64 ]
+            python: "cp3.9"
 
     steps:
       - name: Checkout
@@ -46,18 +62,9 @@ jobs:
         if: ${{ matrix.buildplat[1] == 'win32' }}
         uses: bus1/cabuild/action/msdevshell@e22aba57d6e74891d059d66501b6b5aed8123c4d  # v1
         with:
-          architecture: 'x86'
-
-      - name: Build wheels for linux
-        if: ${{ contains(matrix.buildplat[1], 'linux') }}
-        uses: pypa/cibuildwheel@v2.21.1
-        env:
-          CIBW_PRERELEASE_PYTHONS: True
-          CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
-          CIBW_ARCHS: ${{ matrix.buildplat[2] }}  # TODO fix this
+          architecture: matrix.buildplat[2]
 
       - name: Build wheels
-        if: ${{ !contains(matrix.buildplat[1], 'linux') }}
         uses: pypa/cibuildwheel@v2.21.1
         env:
           CIBW_PRERELEASE_PYTHONS: True
