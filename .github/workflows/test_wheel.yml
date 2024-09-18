@@ -30,9 +30,9 @@ jobs:
         exclude:
           # - buildplat: [windows-2022, win32]
           #  python: "pp39"
-          - buildplat: [ ubuntu-22.04, musllinux_x86_64 ]
+          - buildplat: [ ubuntu-latest, musllinux_x86_64 ]
             python: "pp39"
-          - buildplat: [ ubuntu-22.04, musllinux_aarch64 ]
+          - buildplat: [ ubuntu-latest, musllinux_aarch64 ]
             python: "pp39"
 
     steps:
@@ -52,6 +52,10 @@ jobs:
         env:
           CIBW_PRERELEASE_PYTHONS: True
           CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
+          CIBW_MANYLINUX_X86_64_IMAGE: quay.io/pypa/manylinux_2_28_x86_64
+          CIBW_MANYLINUX_AARCH64_IMAGE: quay.io/pypa/manylinux_2_28_aarch64
+          CIBW_MUSLLINUX_X86_64_IMAGE: quay.io/pypa/musllinux_1_2_x86_64
+          CIBW_MUSLLINUX_AARCH64_IMAGE: quay.io/pypa/musllinux_1_2_aarch64
           CIBW_ENVIRONMENT_MACOS: >
             CFLAGS='-s'
             CXXFLAGS='-s'
