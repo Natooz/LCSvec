@@ -27,14 +27,14 @@ jobs:
           - [macos-14, macosx_arm64, arm64]
           - [windows-2022, win32, x86]
           - [windows-latest, win_amd64, AMD64]
-          # - [windows-latest, win_arm64, arm64]
+          # - [windows-latest, win_arm64, ARM64]
         python: ["cp38", "cp39", "cp310", "cp311", "cp312", "pp39", "pp310"]
         # PyPy is not supported for musllinux, win32 and windows arm64
-        # CPython 3.9 is not supported on windows arm64
+        # CPython 3.8 is not supported on windows arm64
         exclude:
           - buildplat: [ windows-2022, win32, x86 ]
             python: "pp39"
-          - buildplat: [ windows-latest, win_arm64, arm64 ]
+          - buildplat: [ windows-latest, win_arm64, ARM64 ]
             python: "pp39"
           - buildplat: [ ubuntu-latest, musllinux_x86_64, x86_64 ]
             python: "pp39"
@@ -42,14 +42,14 @@ jobs:
             python: "pp39"
           - buildplat: [ windows-2022, win32, x86 ]
             python: "pp310"
-          - buildplat: [ windows-latest, win_arm64, arm64 ]
+          - buildplat: [ windows-latest, win_arm64, ARM64 ]
             python: "pp310"
           - buildplat: [ ubuntu-latest, musllinux_x86_64, x86_64 ]
             python: "pp310"
           - buildplat: [ ubuntu-latest, musllinux_aarch64, aarch64 ]
             python: "pp310"
-          - buildplat: [ windows-latest, win_arm64, arm64 ]
-            python: "cp3.9"
+          - buildplat: [ windows-latest, win_arm64, ARM64 ]
+            python: "cp38"
 
     steps:
       - name: Checkout
