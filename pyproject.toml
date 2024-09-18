@@ -2,7 +2,7 @@
 requires = [
     "setuptools>=42",
     "scikit-build-core >=0.8.0",
-    "nanobind>=1.9.0",
+    "nanobind>=2.1.0",
     "cmake>=3.20",
     "ninja",
 ]
@@ -17,7 +17,7 @@ authors = [
 maintainers = [
     {name = "Nathan Fradet"}
 ]
-description = "Longest Common Subsequence (LCS) extension for vectors."
+description = "Longest Common Subsequence (LCS) extension for integer vectors."
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {file = "LICENSE"}
 keywords = ["lcs"]
@@ -62,6 +62,12 @@ version.input = "src/lcsvec/__init__.py"
 
 [tool.skbuild]
 # packages = ["lcsvec"]
+
+[tool.cibuildwheel.linux]
+manylinux-x86_64-image = "manylinux2014"
+manylinux-aarch64-image = "manylinux2014"
+musllinux-x86_64-image = "musllinux_1_2"
+musllinux-aarch64-image = "musllinux_1_2"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
