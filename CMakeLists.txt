@@ -26,7 +26,7 @@ if (NOT SKBUILD)
 endif()
 
 # Find Python and nanobind
-find_package(Python 3.8 REQUIRED COMPONENTS Interpreter Development.Module
+find_package(Python 3.9 REQUIRED COMPONENTS Interpreter Development.Module
              OPTIONAL_COMPONENTS Development.SABIModule)
 find_package(nanobind CONFIG REQUIRED)
 
