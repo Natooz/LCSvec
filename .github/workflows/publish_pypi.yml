@@ -33,7 +33,6 @@ jobs:
 
         python: ["cp39", "cp310", "cp311", "cp312", "cp313", "cp314", "pp311"]
         # PyPy is not supported for musllinux, win32 and windows arm64
-        # CPython 3.8 is not supported on windows arm64
         exclude:
           - buildplat: [windows-11-arm, win_arm64]
             python: "pp311"
